@@ -1,10 +1,13 @@
+import RouterView from "./Router";
+
+import Container from "./components/Container/Container";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        WORK
-      </header>
+      <Container>
+        <RouterView />
+      </Container>
     </div>
   );
 }
