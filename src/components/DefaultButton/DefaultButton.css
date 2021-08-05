@@ -1,0 +1,19 @@
+.default-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid rgb(34, 34, 34);
+  border-radius: 4px;
+  padding: 5px 15px;
+  font-weight: 600;
+  overflow: hidden;
+  position: relative;
+  font-size: 1rem;
+  color: rgb(31, 31, 31);
+  transition: .3s;
+}
+
+.default-btn:hover {
+  color: rgb(230, 230, 230);
+  background-color: rgb(34, 34, 34);
+}
+

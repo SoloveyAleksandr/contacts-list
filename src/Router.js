@@ -1,5 +1,7 @@
 import { Switch, Route } from "react-router";
 
+import ContactsList from "./screens/ContactsList/ContactsList";
+
 function RouterView() {
   return (
     <Switch>
@@ -8,6 +10,7 @@ function RouterView() {
         path='/'>
         <div>
           <h1>HOME</h1>
+          <ContactsList />
         </div>
       </Route>
       <Route path="*">

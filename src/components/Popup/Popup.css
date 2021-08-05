@@ -1,0 +1,26 @@
+.popup-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-bg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.popup {
+  padding: 20px;
+  background-color: rgb(231, 231, 231);
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1100;
+  box-shadow: 0 0 6px rgb(231, 231, 231);
+}
