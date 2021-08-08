@@ -1,4 +1,4 @@
-import './ContactCreationForm.css';
+import style from './ContactCreationForm.module.css';
 
 function ContactCreationForm({
   onSubmit,
@@ -9,17 +9,17 @@ function ContactCreationForm({
 }) {
   return (
     <form
-      className='form'
+      className={style['form']}
       onSubmit={onSubmit}>
       <input
-        className='form__inp'
+        className={style['form__inp']}
         placeholder='Contact name: *'
         type="text"
         id="contactName"
         required
         value={contactName}
         onChange={changeName} />
-      <div className='form__buttons'>
+      <div className={style['form__buttons']}>
         {acceptBtn}
         {cancelBtn}
       </div>

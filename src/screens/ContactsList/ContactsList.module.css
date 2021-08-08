@@ -1,0 +1,29 @@
+.contacts-header {
+  padding      : 15px 0;
+  border-bottom: 1px solid rgb(34, 34, 34);
+}
+
+.contacts-list__user-number {
+  margin-right: 10px;
+}
+
+.contacts-list__item {
+  max-width      : 400px;
+  margin         : 5px auto;
+  padding        : 5px 0;
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  font-weight    : 600;
+  border-top     : 1px solid rgba(34, 34, 34, 0.6);
+  border-bottom  : 1px solid rgba(34, 34, 34, 0.4);
+  transition     : .3s;
+}
+
+.contacts-list__item:hover {
+  border-color: rgb(34, 34, 34);
+}
+
+.contacts-list__btn-wrapper {
+  margin: 0 5px;
+}

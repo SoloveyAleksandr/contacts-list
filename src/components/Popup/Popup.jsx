@@ -1,4 +1,4 @@
-import './Popup.css';
+import style from './Popup.module.css';
 
 function Popup({
   isActive,
@@ -10,11 +10,11 @@ function Popup({
   }
   return (
     <div
-      className="popup-wrapper">
+      className={style["popup-wrapper"]}>
       <div
-        className="popup-bg"
+        className={style["popup-bg"]}
         onClick={closeFunc}></div>
-      <div className="popup">
+      <div className={style["popup"]}>
         {children}
       </div>
     </div>

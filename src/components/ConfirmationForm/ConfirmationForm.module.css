@@ -1,0 +1,10 @@
+.confirm-form__title {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.confirm-form-buttons {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-around;
+}
