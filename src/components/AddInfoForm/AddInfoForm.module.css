@@ -1,0 +1,30 @@
+.add-info-form {
+  display       : flex;
+  flex-direction: column;
+  align-items   : flex-start;
+}
+
+.add-info-form__label {
+  font-weight: 600;
+}
+
+.add-info-form__input {
+  background-color: transparent;
+  padding         : 5px 10px;
+  border          : 2px solid rgb(34, 34, 34);
+  color           : rgb(34, 34, 34);
+  border-radius   : 4px;
+  margin-bottom   : 15px;
+  width: 200px;
+}
+
+.add-info-form__textarea{
+  height: 150px;
+}
+
+.add-info-form__buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
