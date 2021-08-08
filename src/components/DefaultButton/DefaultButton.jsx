@@ -1,4 +1,4 @@
-import './DefaultButton.css';
+import style from './DefaultButton.module.css';
 
 function DefaultButton({
   onClick,
@@ -9,7 +9,7 @@ function DefaultButton({
     <button
       onClick={onClick}
       type={type}
-      className='default-btn'>
+      className={style['default-btn']}>
       {content}
     </button>
   );
