@@ -16,6 +16,7 @@ const stateSlice = createSlice({
     },
     currentContactInfoID: null,
     editInfoPopupIsActive: false,
+    cancelPopupIsActive: false,
   },
 
   reducers: {
@@ -50,6 +51,9 @@ const stateSlice = createSlice({
     setActiveEditPopup(state) {
       state.editInfoPopupIsActive = !state.editInfoPopupIsActive;
     },
+    setActiveCancelPopup(state) {
+      state.cancelPopupIsActive = !state.cancelPopupIsActive;
+    },
   }
 });
 
@@ -63,6 +67,7 @@ export const {
   clearNewUserInfo,
   setCurrentContactInfoID,
   setActiveEditPopup,
+  setActiveCancelPopup,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

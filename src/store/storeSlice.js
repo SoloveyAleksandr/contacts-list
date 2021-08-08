@@ -24,6 +24,7 @@ const storeSlice = createSlice({
       title: '',
       text: '',
     },
+    prevContactState: {},
   },
 
   reducers: {
@@ -86,6 +87,15 @@ const storeSlice = createSlice({
         }
       });
     },
+    setPrevContactState(state) {
+      state.prevContactState = state.currentContact;
+    },
+    cancelChange(state) {
+      state.currentContact = state.prevContactState;
+    },
+    clearPrevContactState(state) {
+      state.prevContactState = {};
+    },
   },
 });
 
@@ -102,6 +112,9 @@ export const {
   setEditContactTitle,
   setEditContactText,
   editContactInfo,
+  setPrevContactState,
+  cancelChange,
+  clearPrevContactState,
 } = storeSlice.actions;
 
 export default storeSlice.reducer;

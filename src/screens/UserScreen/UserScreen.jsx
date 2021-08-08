@@ -6,6 +6,7 @@ import {
   faPlus,
   faCheckCircle,
   faTimesCircle,
+  faBackward,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -15,7 +16,10 @@ import {
   setEditContactValue,
   setEditContactTitle,
   setEditContactText,
-  editContactInfo
+  editContactInfo,
+  setPrevContactState,
+  cancelChange,
+  clearPrevContactState,
 } from '../../store/storeSlice';
 import {
   setActiveAddInfoPopup,
@@ -25,6 +29,7 @@ import {
   setActiveDelitionPopup,
   setCurrentContactInfoID,
   setActiveEditPopup,
+  setActiveCancelPopup,
 } from '../../store/stateSlice/stateSlice';
 
 import DefaultButton from '../../components/DefaultButton/DefaultButton';
@@ -79,6 +84,7 @@ function UserScreen() {
   const setEditItemInfo = (id) => {
     reduxDispatch(setCurrentContactInfoID(id));
     reduxDispatch(setEditContactValue(id));
+    reduxDispatch(setPrevContactState());
     openEditInfoPopup();
   };
 
@@ -87,10 +93,29 @@ function UserScreen() {
     reduxDispatch(editContactInfo(state.currentContactInfoID));
     saveContact();
     openEditInfoPopup();
-  }
+  };
+
+  const openUndoChangesPopup = () => {
+    reduxDispatch(setActiveCancelPopup());
+  };
+
+  const undoChanges = () => {
+    reduxDispatch(cancelChange());
+    reduxDispatch(clearPrevContactState());
+    openUndoChangesPopup();
+  };
 
   return (
     <div className='user'>
+      <Popup
+        isActive={state.cancelPopupIsActive}
+        closeFunc={openUndoChangesPopup}>
+        <ConfirmationForm
+          title={'undo the changes?'}
+          accept={undoChanges}
+          cancel={openUndoChangesPopup} />
+      </Popup>
+
       <Popup
         isActive={state.delitionPopupIsActive}
         closeFunc={openDeletionPopup}>
@@ -135,14 +160,23 @@ function UserScreen() {
               content={<FontAwesomeIcon icon={faCheckCircle} />} />}
           cancelBtn={
             <DefaultButton
-              onClick={openAddInfoPopup}
+              onClick={openEditInfoPopup}
               type='button'
               content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
       </Popup>
 
       <div className={style['user-info']}>
-        <h4 className={style['user-info__name']}>{contact.contactName}</h4>
-        <span className={style['user-info__id']}>id: {contact.ID}</span>
+        <div>
+          <h4 className={style['user-info__name']}>{contact.contactName}</h4>
+          <span className={style['user-info__id']}>id: {contact.ID}</span>
+        </div>
+        {
+          store.prevContactState.ID ?
+            <DefaultButton
+              onClick={openUndoChangesPopup}
+              type='button'
+              content={<FontAwesomeIcon icon={faBackward} />} /> : null
+        }
       </div>
       <div className={style['contact-info-wrapper']}>
         <span className={style['contact-info__title']}>Contact information:</span>
