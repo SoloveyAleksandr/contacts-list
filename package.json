@@ -1,6 +1,5 @@
 {
   "name": "contacts-list",
-  "homepage": "https://soloveyaleksandr.github.io/contacts-list/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
