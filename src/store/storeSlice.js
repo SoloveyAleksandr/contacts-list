@@ -8,10 +8,7 @@ const storeSlice = createSlice({
     contactsList: [{
       ID: "ws9fe99g",
       contactName: 'default',
-      contactInfo: [{
-        title: 'phone',
-        text: '+375 29 106 86 68',
-      }],
+      contactInfo: [],
     }],
     contactForm: {
       ID: uuid().slice(0, 8),
@@ -21,10 +18,11 @@ const storeSlice = createSlice({
     currentContact: {
       ID: "ws9fe99g",
       contactName: 'default',
-      contactInfo: [{
-        title: 'phone',
-        text: '+375 29 106 86 68',
-      }],
+      contactInfo: [],
+    },
+    editContactValue: {
+      title: '',
+      text: '',
     },
   },
 
@@ -52,6 +50,42 @@ const storeSlice = createSlice({
         }
       })
     },
+    addContactInfo(state, action) {
+      state.currentContact.contactInfo.push(action.payload);
+    },
+    saveContactInfo(state) {
+      state.contactsList.forEach(el => {
+        if (el.ID === state.currentContact.ID) {
+          el.contactInfo = state.currentContact.contactInfo;
+        }
+      })
+    },
+    deleteContactInfo(state, action) {
+      state.currentContact.contactInfo = state.currentContact.contactInfo.filter((info) => info.ID !== action.payload);
+    },
+    setEditContactValue(state, action) {
+      state.currentContact.contactInfo.forEach(item => {
+        if (item.ID === action.payload) {
+          state.editContactValue.title = item.title;
+          state.editContactValue.text = item.text;
+        }
+      })
+    },
+    setEditContactTitle(state, action) {
+      state.editContactValue.title = action.payload;
+    },
+    setEditContactText(state, action) {
+      state.editContactValue.text = action.payload;
+    },
+    editContactInfo(state, action) {
+      state.currentContact.contactInfo.forEach(item => {
+        if (item.ID === action.payload) {
+          item.title = state.editContactValue.title;
+          item.text = state.editContactValue.text;
+          console.log('edit item');
+        }
+      });
+    },
   },
 });
 
@@ -61,6 +95,13 @@ export const {
   clearContactForm,
   deleteContact,
   setCurrentContact,
+  addContactInfo,
+  saveContactInfo,
+  deleteContactInfo,
+  setEditContactValue,
+  setEditContactTitle,
+  setEditContactText,
+  editContactInfo,
 } = storeSlice.actions;
 
 export default storeSlice.reducer;

@@ -7,11 +7,30 @@ import {
   faCheckCircle,
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { setActiveAddInfoPopup } from '../../store/stateSlice/stateSlice';
+
+import {
+  addContactInfo,
+  saveContactInfo,
+  deleteContactInfo,
+  setEditContactValue,
+  setEditContactTitle,
+  setEditContactText,
+  editContactInfo
+} from '../../store/storeSlice';
+import {
+  setActiveAddInfoPopup,
+  setUserInfoTitle,
+  setUserInfoText,
+  clearNewUserInfo,
+  setActiveDelitionPopup,
+  setCurrentContactInfoID,
+  setActiveEditPopup,
+} from '../../store/stateSlice/stateSlice';
 
 import DefaultButton from '../../components/DefaultButton/DefaultButton';
 import Popup from '../../components/Popup/Popup';
 import AddInfoForm from '../../components/AddInfoForm/AddInfoForm';
+import ConfirmationForm from '../../components/ConfirmationForm/ConfirmationForm';
 
 import style from './UserScreen.module.css';
 
@@ -22,27 +41,103 @@ function UserScreen() {
 
   const contact = store.currentContact;
 
+  const saveContact = () => {
+    reduxDispatch(saveContactInfo());
+  };
+
   const openAddInfoPopup = () => {
+    reduxDispatch(clearNewUserInfo());
     reduxDispatch(setActiveAddInfoPopup());
   };
+
+  const addInfoItem = (e) => {
+    e.preventDefault();
+    reduxDispatch(addContactInfo(state.newUserInfo));
+    openAddInfoPopup();
+    saveContact();
+  }
+
+  const openDeletionPopup = () => {
+    reduxDispatch(setActiveDelitionPopup());
+  };
+
+  const delitionRequest = (id) => {
+    reduxDispatch(setCurrentContactInfoID(id));
+    openDeletionPopup();
+  };
+
+  const removeContact = () => {
+    reduxDispatch(deleteContactInfo(state.currentContactInfoID));
+    saveContact();
+    openDeletionPopup();
+  };
+
+  const openEditInfoPopup = () => {
+    reduxDispatch(setActiveEditPopup());
+  };
+
+  const setEditItemInfo = (id) => {
+    reduxDispatch(setCurrentContactInfoID(id));
+    reduxDispatch(setEditContactValue(id));
+    openEditInfoPopup();
+  };
+
+  const editInfoItem = (e) => {
+    e.preventDefault();
+    reduxDispatch(editContactInfo(state.currentContactInfoID));
+    saveContact();
+    openEditInfoPopup();
+  }
 
   return (
     <div className='user'>
       <Popup
+        isActive={state.delitionPopupIsActive}
+        closeFunc={openDeletionPopup}>
+        <ConfirmationForm
+          title={'delete this info?'}
+          accept={removeContact}
+          cancel={openDeletionPopup} />
+      </Popup>
+
+      <Popup
         isActive={state.addInfoPopupIsActive}
         closeFunc={openAddInfoPopup}>
         <AddInfoForm
-          onSubmit={0}
-          title={''}
-          info={''}
-          acceptBtn={<DefaultButton
-            onClick={0}
-            type='submit'
-            content={<FontAwesomeIcon icon={faCheckCircle} />} />}
-          cancelBtn={<DefaultButton
-            onClick={0}
-            type='button'
-            content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
+          onSubmit={(e) => addInfoItem(e)}
+          title={state.newUserInfo.title}
+          info={state.newUserInfo.text}
+          setTitle={(e) => reduxDispatch(setUserInfoTitle(e.target.value))}
+          setInfo={(e) => reduxDispatch(setUserInfoText(e.target.value))}
+          acceptBtn={
+            <DefaultButton
+              type='submit'
+              content={<FontAwesomeIcon icon={faCheckCircle} />} />}
+          cancelBtn={
+            <DefaultButton
+              onClick={openAddInfoPopup}
+              type='button'
+              content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
+      </Popup>
+
+      <Popup
+        isActive={state.editInfoPopupIsActive}
+        closeFunc={openEditInfoPopup}>
+        <AddInfoForm
+          onSubmit={(e) => editInfoItem(e)}
+          title={store.editContactValue.title}
+          info={store.editContactValue.text}
+          setTitle={(e) => reduxDispatch(setEditContactTitle(e.target.value))}
+          setInfo={(e) => reduxDispatch(setEditContactText(e.target.value))}
+          acceptBtn={
+            <DefaultButton
+              type='submit'
+              content={<FontAwesomeIcon icon={faCheckCircle} />} />}
+          cancelBtn={
+            <DefaultButton
+              onClick={openAddInfoPopup}
+              type='button'
+              content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
       </Popup>
 
       <div className={style['user-info']}>
@@ -66,9 +161,9 @@ function UserScreen() {
                 <div className={style['user-info-list__buttons']}>
                   <button
                     className={style['user-info-list__edit-btn']}
-                    onClick={0}>edit</button>
+                    onClick={() => setEditItemInfo(el.ID)}>edit</button>
                   <DefaultButton
-                    onClick={0}
+                    onClick={() => delitionRequest(el.ID)}
                     type='button'
                     content={<FontAwesomeIcon icon={faTimes} />} />
                 </div>

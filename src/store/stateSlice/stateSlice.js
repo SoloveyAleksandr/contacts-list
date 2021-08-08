@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
 
 const stateSlice = createSlice({
   name: 'stateSlice',
@@ -8,6 +9,13 @@ const stateSlice = createSlice({
     delitionPopupIsActive: false,
     addInfoPopupIsActive: false,
     currentContactID: null,
+    newUserInfo: {
+      ID: uuid().slice(-10),
+      title: '',
+      text: '',
+    },
+    currentContactInfoID: null,
+    editInfoPopupIsActive: false,
   },
 
   reducers: {
@@ -23,6 +31,25 @@ const stateSlice = createSlice({
     setActiveAddInfoPopup(state) {
       state.addInfoPopupIsActive = !state.addInfoPopupIsActive;
     },
+    setUserInfoTitle(state, action) {
+      state.newUserInfo.title = action.payload;
+    },
+    setUserInfoText(state, action) {
+      state.newUserInfo.text = action.payload;
+    },
+    clearNewUserInfo(state) {
+      state.newUserInfo = {
+        ID: uuid().slice(-10),
+        title: '',
+        text: '',
+      }
+    },
+    setCurrentContactInfoID(state, action) {
+      state.currentContactInfoID = action.payload;
+    },
+    setActiveEditPopup(state) {
+      state.editInfoPopupIsActive = !state.editInfoPopupIsActive;
+    },
   }
 });
 
@@ -31,6 +58,11 @@ export const {
   setActiveDelitionPopup,
   setCurrentContactID,
   setActiveAddInfoPopup,
+  setUserInfoTitle,
+  setUserInfoText,
+  clearNewUserInfo,
+  setCurrentContactInfoID,
+  setActiveEditPopup,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
