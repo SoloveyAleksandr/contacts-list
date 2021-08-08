@@ -7,7 +7,9 @@ import {
   faCheckCircle,
   faTimesCircle,
   faBackward,
+  faArrowCircleLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
 
 import {
   addContactInfo,
@@ -165,6 +167,12 @@ function UserScreen() {
               content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
       </Popup>
 
+      <NavLink
+        to={'/'} 
+        onClick={() => reduxDispatch(clearPrevContactState())}>
+        <span className={style['back-link']}>
+          <FontAwesomeIcon icon={faArrowCircleLeft} /> Back to contacts list</span>
+      </NavLink>
       <div className={style['user-info']}>
         <div>
           <h4 className={style['user-info__name']}>{contact.contactName}</h4>
@@ -210,7 +218,7 @@ function UserScreen() {
             </li>)
         }
       </ul>
-    </div>
+    </div >
   );
 }
 

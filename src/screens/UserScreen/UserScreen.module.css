@@ -78,3 +78,8 @@
 .user-info-list__text {
   color: rgb(88, 88, 88);
 }
+
+.back-link {
+  color: rgb(49, 49, 49);
+  font-weight: 600;
+}
