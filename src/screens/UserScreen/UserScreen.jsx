@@ -8,6 +8,7 @@ import {
   faTimesCircle,
   faBackward,
   faArrowCircleLeft,
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 
@@ -22,6 +23,8 @@ import {
   setPrevContactState,
   cancelChange,
   clearPrevContactState,
+  setEditContactName,
+  saveContactName,
 } from '../../store/storeSlice';
 import {
   setActiveAddInfoPopup,
@@ -32,12 +35,14 @@ import {
   setCurrentContactInfoID,
   setActiveEditPopup,
   setActiveCancelPopup,
+  setActiveEditNamePopup,
 } from '../../store/stateSlice/stateSlice';
 
 import DefaultButton from '../../components/DefaultButton/DefaultButton';
 import Popup from '../../components/Popup/Popup';
 import AddInfoForm from '../../components/AddInfoForm/AddInfoForm';
 import ConfirmationForm from '../../components/ConfirmationForm/ConfirmationForm';
+import ContactCreationForm from '../../components/UserCreationForm/ContactCreationForm';
 
 import style from './UserScreen.module.css';
 
@@ -83,6 +88,11 @@ function UserScreen() {
     reduxDispatch(setActiveEditPopup());
   };
 
+  const resetPrevState = () => {
+    openEditInfoPopup();
+    reduxDispatch(clearPrevContactState());
+  };
+
   const setEditItemInfo = (id) => {
     reduxDispatch(setCurrentContactInfoID(id));
     reduxDispatch(setEditContactValue(id));
@@ -107,8 +117,36 @@ function UserScreen() {
     openUndoChangesPopup();
   };
 
+  const openEditNamePopup = () => {
+    reduxDispatch(setActiveEditNamePopup());
+  };
+
+  const editContactName = (e) => {
+    e.preventDefault();
+    reduxDispatch(saveContactName());
+    openEditNamePopup();
+  };
+
   return (
     <div className='user'>
+      <Popup
+        isActive={state.editNamePopupIsActive}
+        closeFunc={openEditNamePopup}>
+        <ContactCreationForm
+          onSubmit={(e) => editContactName(e)}
+          contactName={contact.contactName}
+          changeName={(e) => reduxDispatch(setEditContactName(e.target.value))}
+          acceptBtn={
+            <DefaultButton
+              type='submit'
+              content={<FontAwesomeIcon icon={faCheckCircle} />} />}
+          cancelBtn={
+            <DefaultButton
+              onClick={openEditNamePopup}
+              type='button'
+              content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
+      </Popup>
+
       <Popup
         isActive={state.cancelPopupIsActive}
         closeFunc={openUndoChangesPopup}>
@@ -149,7 +187,7 @@ function UserScreen() {
 
       <Popup
         isActive={state.editInfoPopupIsActive}
-        closeFunc={openEditInfoPopup}>
+        closeFunc={resetPrevState}>
         <AddInfoForm
           onSubmit={(e) => editInfoItem(e)}
           title={store.editContactValue.title}
@@ -162,7 +200,7 @@ function UserScreen() {
               content={<FontAwesomeIcon icon={faCheckCircle} />} />}
           cancelBtn={
             <DefaultButton
-              onClick={openEditInfoPopup}
+              onClick={resetPrevState}
               type='button'
               content={<FontAwesomeIcon icon={faTimesCircle} />} />} />
       </Popup>
@@ -175,7 +213,10 @@ function UserScreen() {
       </NavLink>
       <div className={style['user-info']}>
         <div>
-          <h4 className={style['user-info__name']}>{contact.contactName}</h4>
+          <h4 className={style['user-info__name']}>{contact.contactName}
+            <button
+              className={style['user-info__name-btn']}
+              onClick={openEditNamePopup} ><FontAwesomeIcon icon={faPen} /></button></h4>
           <span className={style['user-info__id']}>id: {contact.ID}</span>
         </div>
         {

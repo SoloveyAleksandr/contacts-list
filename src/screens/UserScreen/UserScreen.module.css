@@ -1,13 +1,29 @@
 .user-info {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
+  margin-bottom  : 20px;
+  display        : flex;
+  align-items    : center;
   justify-content: space-between;
 }
 
 .user-info__name {
   font-size    : 2rem;
   margin-bottom: -10px;
+  display      : flex;
+  align-items  : flex-start;
+}
+
+.user-info__name-btn {
+  color           : rgb(150, 150, 150);
+  font-size       : 1rem;
+  border-color    : transparent;
+  border          : none;
+  cursor          : pointer;
+  background-color: transparent;
+  transition      : .3s;
+}
+
+.user-info__name-btn:hover {
+  color: rgb(49, 49, 49);
 }
 
 .user-info__id {
@@ -80,6 +96,6 @@
 }
 
 .back-link {
-  color: rgb(49, 49, 49);
+  color      : rgb(49, 49, 49);
   font-weight: 600;
 }

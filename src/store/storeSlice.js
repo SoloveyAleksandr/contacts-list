@@ -61,6 +61,13 @@ const storeSlice = createSlice({
         }
       });
     },
+    saveContactName(state) {
+      state.contactsList.forEach(el => {
+        if (el.ID === state.currentContact.ID) {
+          el.contactName = state.currentContact.contactName;
+        }
+      });
+    },
     deleteContactInfo(state, action) {
       state.currentContact.contactInfo = state.currentContact.contactInfo.filter((info) => info.ID !== action.payload);
     },
@@ -86,6 +93,9 @@ const storeSlice = createSlice({
           console.log('edit item');
         }
       });
+    },
+    setEditContactName(state, action) {
+      state.currentContact.contactName = action.payload;
     },
     setPrevContactState(state) {
       state.prevContactState = state.currentContact;
@@ -115,6 +125,8 @@ export const {
   setPrevContactState,
   cancelChange,
   clearPrevContactState,
+  setEditContactName,
+  saveContactName,
 } = storeSlice.actions;
 
 export default storeSlice.reducer;
