@@ -62,7 +62,7 @@ function UserScreen() {
     reduxDispatch(addContactInfo(state.newUserInfo));
     openAddInfoPopup();
     saveContact();
-  }
+  };
 
   const openDeletionPopup = () => {
     reduxDispatch(setActiveDelitionPopup());
@@ -168,7 +168,7 @@ function UserScreen() {
       </Popup>
 
       <NavLink
-        to={'/'} 
+        to={'/'}
         onClick={() => reduxDispatch(clearPrevContactState())}>
         <span className={style['back-link']}>
           <FontAwesomeIcon icon={faArrowCircleLeft} /> Back to contacts list</span>
@@ -196,7 +196,8 @@ function UserScreen() {
       <ul className={style['user-info-list']}>
         {
           contact.contactInfo.map((el) =>
-            <li key={uuid()}
+            <li
+              key={uuid()}
               className={style['user-info-list__item']}>
               <div className={style['user-info-list-title-wrapper']}>
                 <h6 className={style['user-info-list__title']}>{el.title}:</h6>

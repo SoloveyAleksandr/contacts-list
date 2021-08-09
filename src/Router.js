@@ -1,9 +1,9 @@
-import { Switch, Route } from "react-router";
+import { Switch, Route } from 'react-router';
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import ContactsList from "./screens/ContactsList/ContactsList";
-import UserScreen from "./screens/UserScreen/UserScreen";
+import ContactsList from './screens/ContactsList/ContactsList';
+import UserScreen from './screens/UserScreen/UserScreen';
 
 function RouterView() {
   const state = useSelector(state => state.state);
@@ -24,6 +24,6 @@ function RouterView() {
       </Route>
     </Switch>
   );
-};
+}
 
 export default RouterView;

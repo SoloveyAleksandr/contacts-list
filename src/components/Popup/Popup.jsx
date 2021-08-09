@@ -10,15 +10,15 @@ function Popup({
   }
   return (
     <div
-      className={style["popup-wrapper"]}>
+      className={style['popup-wrapper']}>
       <div
-        className={style["popup-bg"]}
+        className={style['popup-bg']}
         onClick={closeFunc}></div>
-      <div className={style["popup"]}>
+      <div className={style['popup']}>
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 export default Popup;

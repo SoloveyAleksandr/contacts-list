@@ -40,7 +40,7 @@ function ContactsList() {
   const openCreationPopup = () => {
     reduxDispatch(setActiveCreationPopup());
     reduxDispatch(clearContactForm());
-  }
+  };
 
   const createContact = (e) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ function ContactsList() {
               content={<FontAwesomeIcon icon={faUserPlus}></FontAwesomeIcon>} />} />
       </Popup>
 
-      <div className={style["contacts-header"]}>
+      <div className={style['contacts-header']}>
         <DefaultButton
           onClick={openCreationPopup}
           type='button'
@@ -100,7 +100,9 @@ function ContactsList() {
       <ul className='contacts-list'>
         {
           contactsList.map((el, indx) =>
-            <li key={el.ID} className={style["contacts-list__item"]}>
+            <li
+              key={el.ID}
+              className={style['contacts-list__item']}>
               <div>
                 <span className={style['contacts-list__user-number']}>{indx + 1}.</span>
                 <span className={style['contacts-list__username']}>{el.contactName}</span>
