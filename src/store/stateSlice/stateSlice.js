@@ -43,7 +43,7 @@ const stateSlice = createSlice({
         ID: uuid().slice(-10),
         title: '',
         text: '',
-      }
+      };
     },
     setCurrentContactInfoID(state, action) {
       state.currentContactInfoID = action.payload;
@@ -54,7 +54,7 @@ const stateSlice = createSlice({
     setActiveCancelPopup(state) {
       state.cancelPopupIsActive = !state.cancelPopupIsActive;
     },
-  }
+  },
 });
 
 export const {

@@ -6,8 +6,8 @@ const storeSlice = createSlice({
 
   initialState: {
     contactsList: [{
-      ID: "ws9fe99g",
-      contactName: 'default',
+      ID: 'ws9fe99g',
+      contactName: 'Default Contact',
       contactInfo: [],
     }],
     contactForm: {
@@ -16,8 +16,8 @@ const storeSlice = createSlice({
       contactInfo: [],
     },
     currentContact: {
-      ID: "ws9fe99g",
-      contactName: 'default',
+      ID: 'ws9fe99g',
+      contactName: 'Default Contact',
       contactInfo: [],
     },
     editContactValue: {
@@ -39,17 +39,17 @@ const storeSlice = createSlice({
         ID: uuid().slice(0, 8),
         contactName: '',
         contactInfo: [],
-      }
+      };
     },
     deleteContact(state, action) {
-      state.contactsList.filter((contact) => contact.ID !== action.payload);
+      state.contactsList = state.contactsList.filter((contact) => contact.ID !== action.payload);
     },
     setCurrentContact(state, action) {
       state.contactsList.forEach(el => {
         if (el.ID === action.payload) {
           state.currentContact = el;
         }
-      })
+      });
     },
     addContactInfo(state, action) {
       state.currentContact.contactInfo.push(action.payload);
@@ -59,7 +59,7 @@ const storeSlice = createSlice({
         if (el.ID === state.currentContact.ID) {
           el.contactInfo = state.currentContact.contactInfo;
         }
-      })
+      });
     },
     deleteContactInfo(state, action) {
       state.currentContact.contactInfo = state.currentContact.contactInfo.filter((info) => info.ID !== action.payload);
@@ -70,7 +70,7 @@ const storeSlice = createSlice({
           state.editContactValue.title = item.title;
           state.editContactValue.text = item.text;
         }
-      })
+      });
     },
     setEditContactTitle(state, action) {
       state.editContactValue.title = action.payload;
