@@ -73,7 +73,13 @@ function UserScreen() {
     reduxDispatch(setActiveDelitionPopup());
   };
 
+  const closeDeletionPopup = () => {
+    reduxDispatch(clearPrevContactState());
+    reduxDispatch(setActiveDelitionPopup());
+  };
+
   const delitionRequest = (id) => {
+    reduxDispatch(setPrevContactState());
     reduxDispatch(setCurrentContactInfoID(id));
     openDeletionPopup();
   };
@@ -158,11 +164,11 @@ function UserScreen() {
 
       <Popup
         isActive={state.delitionPopupIsActive}
-        closeFunc={openDeletionPopup}>
+        closeFunc={closeDeletionPopup}>
         <ConfirmationForm
           title={'delete this info?'}
           accept={removeContact}
-          cancel={openDeletionPopup} />
+          cancel={closeDeletionPopup} />
       </Popup>
 
       <Popup
