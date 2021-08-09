@@ -90,7 +90,6 @@ const storeSlice = createSlice({
         if (item.ID === action.payload) {
           item.title = state.editContactValue.title;
           item.text = state.editContactValue.text;
-          console.log('edit item');
         }
       });
     },
