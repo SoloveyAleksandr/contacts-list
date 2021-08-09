@@ -215,7 +215,7 @@ function UserScreen() {
         to={'/'}
         onClick={() => reduxDispatch(clearPrevContactState())}>
         <span className={style['back-link']}>
-          <FontAwesomeIcon icon={faArrowCircleLeft} /> Back to contacts list</span>
+          <FontAwesomeIcon icon={faArrowCircleLeft} /> Save and back to contacts list</span>
       </NavLink>
       <div className={style['user-info']}>
         <div>
